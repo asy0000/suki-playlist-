@@ -22,7 +22,7 @@ html,body{
 }
 
 body{
-  font-family:"Comic Sans MS","Segoe UI",sans-serif;
+  font-family:"박다현체","Comic Sans MS","Segoe UI",sans-serif;
   color:var(--text);
   background:
     radial-gradient(circle at 10% 10%,rgba(245,173,184,.22),transparent 28%),
@@ -261,6 +261,7 @@ input[type="range"]{
   color:var(--text);
   cursor:pointer;
   text-align:left;
+  font-family:inherit;
 }
 
 .track.active{
@@ -402,85 +403,85 @@ input[type="range"]{
 <audio id="audio" preload="metadata"></audio>
 
 <script>
-const tracks = [
-  {
-    title:"Pale Blue",
-    artist:"Kenshi Yonezu",
-    src:"./paleblue.opus",
-    cover:"https://i.pinimg.com/736x/32/04/94/32049423111eff0b3cb4f0aa14c4f555.jpg"
-  },
-  {
-    title:"orion",
-    artist:"kenshi Yonezu",
-    src:"./orion.opus",
-    cover:"https://i.pinimg.com/736x/d7/b3/9d/d7b39d3ee857225d529dcce731be3d94.jpg"
-  },
-  {
-    title:"Mela!",
-    artist:"Ryoku Shaka",
-    src:"./mela.opus",
-    cover:"https://i.pinimg.com/736x/55/75/f1/5575f1eb320cdb45d910cb888571cd5f.jpg"
-  },
-  {
-    title:"Lady",
-    artist:"Kenshi Yonezu",
-    src:"./lady.opus",
-    cover:"https://i.pinimg.com/736x/20/fe/9d/20fe9d508e77b39d08bf88fe7306f2da.jpg"
-  },
-  {
-    title:"ヒロインRE♡クエスト",
-    artist:"Feat. Kasane Teto, Adachi Rei",
-    src:"./heroin.opus",
-    cover:"https://i.pinimg.com/736x/8f/56/96/8f5696d5f03bdfebd5e2bf0b3a865562.jpg"
-  },
-  {
-    title:"Kimini 100 Percent",
-    artist:"kyari pamyu pamyu",
-    src:"./kimini.opus",
-    cover:"https://i.pinimg.com/736x/da/6a/6e/da6a6eda6c75ba19d4a54a7ecd6e11b8.jpg"
-  },
-  {
-    title:"最大公約数",
-    artist:"RADWIMPS",
-    src:"./rad.opus",
-    cover:"https://i.pinimg.com/736x/9b/b7/b2/9bb7b2c3b4c2151b343ebe8814eb8630.jpg"
-  },
-  {
-    title:"눈 맞추고, 손 맞대고",
-    artist:"Red Velvet",
-    src:"./eyes.opus",
-    cover:"https://i.pinimg.com/1200x/64/7f/41/647f41fe7c51c8b5e7c8f56e1c76327e.jpg"
-  },
-  {
-    title:"동거",
-    artist:"선우정아",
-    src:"./inthebed.opus",
-    cover:"https://i.pinimg.com/1200x/b8/b0/fd/b8b0fde66f0dab4d9a5ed791fefd1f76.jpg"
-  },
-  {
-    title:"Beyond My Dreams",
-    artist:"선우정아",
-    src:"./beyond.opus",
-    cover:"https://i.pinimg.com/1200x/05/84/3d/05843d4912676bb96d4b0660c6524595.jpg"
-  },
-  {
-    title:"행운을 빌어요",
-    artist:"PEPPERTONES",
-    src:"./goodluck.opus",
-    cover:"https://i.pinimg.com/736x/ff/76/51/ff76513560a93f10b488a316db2e6550.jpg"
-  },
-  {
-    title:"Walking with you",
-    artist:"Novelbright",
-    src:"./walking.opus",
-    cover:"https://i.pinimg.com/1200x/e3/a7/fa/e3a7fa1d84a707ce33445cacacc4508c.jpg"
-  },
-  {
-    title:"Starry Drama",
-    artist:"Ryoku Shaka",
-    src:"./starry.opus",
-    cover:"https://i.pinimg.com/1200x/67/62/29/676229f3e356bcd459b09dc74c88e3ef.jpg"
-  }
+const tracks=[
+{
+title:"Pale Blue",
+artist:"Kenshi Yonezu",
+src:"./paleblue.opus",
+cover:"https://i.pinimg.com/736x/32/04/94/32049423111eff0b3cb4f0aa14c4f555.jpg"
+},
+{
+title:"orion",
+artist:"kenshi Yonezu",
+src:"./orion.opus",
+cover:"https://i.pinimg.com/736x/d7/b3/9d/d7b39d3ee857225d529dcce731be3d94.jpg"
+},
+{
+title:"Mela!",
+artist:"Ryoku Shaka",
+src:"./mela.opus",
+cover:"https://i.pinimg.com/736x/55/75/f1/5575f1eb320cdb45d910cb888571cd5f.jpg"
+},
+{
+title:"Lady",
+artist:"Kenshi Yonezu",
+src:"./lady.opus",
+cover:"https://i.pinimg.com/736x/20/fe/9d/20fe9d508e77b39d08bf88fe7306f2da.jpg"
+},
+{
+title:"ヒロインRE♡クエスト",
+artist:"Feat. Kasane Teto, Adachi Rei",
+src:"./heroin.opus",
+cover:"https://i.pinimg.com/736x/8f/56/96/8f5696d5f03bdfebd5e2bf0b3a865562.jpg"
+},
+{
+title:"Kimini 100 Percent",
+artist:"kyari pamyu pamyu",
+src:"./kimini.opus",
+cover:"https://i.pinimg.com/736x/da/6a/6e/da6a6eda6c75ba19d4a54a7ecd6e11b8.jpg"
+},
+{
+title:"最大公約数",
+artist:"RADWIMPS",
+src:"./rad.opus",
+cover:"https://i.pinimg.com/736x/9b/b7/b2/9bb7b2c3b4c2151b343ebe8814eb8630.jpg"
+},
+{
+title:"눈 맞추고, 손 맞대고",
+artist:"Red Velvet",
+src:"./eyes.opus",
+cover:"https://i.pinimg.com/1200x/64/7f/41/647f41fe7c51c8b5e7c8f56e1c76327e.jpg"
+},
+{
+title:"동거",
+artist:"선우정아",
+src:"./inthebed.opus",
+cover:"https://i.pinimg.com/1200x/b8/b0/fd/b8b0fde66f0dab4d9a5ed791fefd1f76.jpg"
+},
+{
+title:"Beyond My Dreams",
+artist:"선우정아",
+src:"./beyond.opus",
+cover:"https://i.pinimg.com/1200x/05/84/3d/05843d4912676bb96d4b0660c6524595.jpg"
+},
+{
+title:"행운을 빌어요",
+artist:"PEPPERTONES",
+src:"./goodluck.opus",
+cover:"https://i.pinimg.com/736x/ff/76/51/ff76513560a93f10b488a316db2e6550.jpg"
+},
+{
+title:"Walking with you",
+artist:"Novelbright",
+src:"./walking.opus",
+cover:"https://i.pinimg.com/1200x/e3/a7/fa/e3a7fa1d84a707ce33445cacacc4508c.jpg"
+},
+{
+title:"Starry Drama",
+artist:"Ryoku Shaka",
+src:"./starry.opus",
+cover:"https://i.pinimg.com/1200x/67/62/29/676229f3e356bcd459b09dc74c88e3ef.jpg"
+}
 ];
 
 const audio=document.getElementById("audio");
@@ -497,12 +498,14 @@ const durationText=document.getElementById("duration");
 const volume=document.getElementById("volume");
 const discWrap=document.getElementById("discWrap");
 
-let current=1;
+let current=0;
 
 function formatTime(seconds){
   if(!Number.isFinite(seconds))return"0:00";
+
   const minutes=Math.floor(seconds/60);
   const secs=Math.floor(seconds%60);
+
   return minutes+":"+String(secs).padStart(2,"0");
 }
 
@@ -634,7 +637,7 @@ audio.addEventListener("ended",function(){
 
 audio.volume=Number(volume.value);
 
-loadTrack(current,false);
+loadTrack(0,false);
 </script>
 
 </body>
