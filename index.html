@@ -56,7 +56,7 @@ header p {
 
 .main {
   display: grid;
-  grid-template-columns: minmax(0,1fr) minmax(340px,.9fr);
+  grid-template-columns: minmax(0, 1fr) minmax(340px, .9fr);
   gap: 22px;
   padding: 22px;
   border-radius: 36px;
@@ -131,7 +131,7 @@ header p {
   z-index: 5;
   left: 50%;
   top: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -145,8 +145,12 @@ header p {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .song-info {
@@ -209,15 +213,24 @@ input[type="range"] {
   box-shadow: 0 8px 20px rgba(90,70,80,.1);
 }
 
+.control-btn:hover {
+  transform: scale(1.05);
+}
+
 .play-btn {
   width: 72px;
   height: 72px;
-  background: linear-gradient(135deg, var(--pink), #f1d5dd 50%, var(--mint));
+  background: linear-gradient(
+    135deg,
+    var(--pink),
+    #f1d5dd 50%,
+    var(--mint)
+  );
   font-size: 26px;
 }
 
 .volume-area {
-  width: min(320px,85%);
+  width: min(320px, 85%);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -270,12 +283,17 @@ input[type="range"] {
   text-align: left;
 }
 
+.track:hover {
+  background: #fff;
+}
+
 .track.active {
-  background: linear-gradient(
-    135deg,
-    rgba(245,173,184,.16),
-    rgba(188,251,250,.16)
-  );
+  background:
+    linear-gradient(
+      135deg,
+      rgba(245,173,184,.16),
+      rgba(188,251,250,.16)
+    );
   border-color: var(--pink);
 }
 
@@ -314,7 +332,7 @@ input[type="range"] {
   }
 
   .disc-wrap {
-    width: min(320px,80%);
+    width: min(320px, 80%);
   }
 
   .playlist {
@@ -342,7 +360,7 @@ input[type="range"] {
   }
 
   .disc-wrap {
-    width: min(270px,85%);
+    width: min(270px, 85%);
   }
 
   .playlist-card {
@@ -413,79 +431,79 @@ const tracks = [
   {
     title: "Pale Blue",
     artist: "Kenshi Yonezu",
-    src: "paleblue.opus",
+    src: "./paleblue.opus",
     cover: "https://picsum.photos/600?random=1"
   },
   {
     title: "orion",
     artist: "Kenshi Yonezu",
-    src: "orion.opus",
+    src: "./orion.opus",
     cover: "https://picsum.photos/600?random=2"
   },
   {
     title: "Mela!",
     artist: "Ryoku Shaka",
-    src: "mela.opus",
+    src: "./mela.opus",
     cover: "https://picsum.photos/600?random=3"
   },
   {
     title: "Lady",
     artist: "Kenshi Yonezu",
-    src: "lady.opus",
+    src: "./lady.opus",
     cover: "https://picsum.photos/600?random=4"
   },
   {
     title: "Kimini 100 Percent",
     artist: "",
-    src: "kimini.opus",
+    src: "./kimini.opus",
     cover: "https://picsum.photos/600?random=5"
   },
   {
     title: "눈 맞추고, 손 맞대고",
     artist: "Red Velvet",
-    src: "eyes.opus",
+    src: "./eyes.opus",
     cover: "https://picsum.photos/600?random=6"
   },
   {
     title: "동거",
     artist: "선우정아",
-    src: "inthebed.opus",
+    src: "./inthebed.opus",
     cover: "https://picsum.photos/600?random=7"
   },
   {
     title: "Beyond My Dreams",
     artist: "선우정아",
-    src: "beyond.opus",
+    src: "./beyond.opus",
     cover: "https://picsum.photos/600?random=8"
   },
   {
     title: "Starry Drama",
     artist: "Ryoku Shaka",
-    src: "starry.opus",
+    src: "./starry.opus",
     cover: "https://picsum.photos/600?random=9"
   },
   {
     title: "Heroine Request",
     artist: "",
-    src: "heroin.opus",
+    src: "./heroin.opus",
     cover: "https://picsum.photos/600?random=10"
   },
   {
     title: "행운을 빌어요",
     artist: "PEPPERTONES",
-    src: "goodluck.opus",
+    src: "./goodluck.opus",
     cover: "https://picsum.photos/600?random=11"
   },
   {
     title: "Walking with you",
     artist: "Novelbright",
-    src: "waking.opus",
+    src: "./walking.opus",
     cover: "https://picsum.photos/600?random=12"
   },
   {
     title: "最大公約数",
     artist: "RADWIMPS",
-    src: "rad.opus",
+    src: "./rad.opus",
     cover: "https://picsum.photos/600?random=13"
   }
 ];
@@ -507,7 +525,9 @@ const discWrap = document.getElementById("discWrap");
 let current = 0;
 
 function formatTime(seconds) {
-  if (!Number.isFinite(seconds)) return "0:00";
+  if (!Number.isFinite(seconds)) {
+    return "0:00";
+  }
 
   const minutes = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
@@ -545,8 +565,13 @@ function renderPlaylist() {
 }
 
 function loadTrack(index, autoplay) {
-  if (index < 0) index = tracks.length - 1;
-  if (index >= tracks.length) index = 0;
+  if (index < 0) {
+    index = tracks.length - 1;
+  }
+
+  if (index >= tracks.length) {
+    index = 0;
+  }
 
   current = index;
 
@@ -572,7 +597,9 @@ function loadTrack(index, autoplay) {
 
 playButton.onclick = function() {
   if (audio.paused) {
-    audio.play();
+    audio.play().catch(function(error) {
+      console.log(error);
+    });
   } else {
     audio.pause();
   }
@@ -609,7 +636,9 @@ audio.addEventListener("loadedmetadata", function() {
 });
 
 progress.oninput = function(event) {
-  if (!Number.isFinite(audio.duration)) return;
+  if (!Number.isFinite(audio.duration)) {
+    return;
+  }
 
   audio.currentTime =
     audio.duration * (Number(event.target.value) / 100);
