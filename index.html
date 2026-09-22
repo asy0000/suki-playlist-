@@ -17,34 +17,36 @@
   --mint: #bcfbfa;
   --text: #493c42;
   --sub: #aa929c;
-  --paper: rgba(255,255,255,.9);
+  --paper: #ffffff;
 }
 
 html,
 body {
   margin: 0;
   min-height: 100%;
-  color-scheme: light;
+  color-scheme: light only;
+  background-color: #ffffff;
 }
 
 body {
   font-family: "박다현체", "Comic Sans MS", "Segoe UI", sans-serif;
-  color: var(--text);
+  color: #493c42;
   background:
     radial-gradient(
       circle at 10% 10%,
-      rgba(245,173,184,.22),
-      transparent 28%
+      rgba(245,173,184,.32),
+      transparent 30%
     ),
     radial-gradient(
       circle at 90% 80%,
-      rgba(188,251,250,.25),
-      transparent 30%
+      rgba(188,251,250,.36),
+      transparent 32%
     ),
     linear-gradient(
       135deg,
-      #fff6f9,
-      #ffffff
+      #fff6f9 0%,
+      #ffffff 50%,
+      #f5ffff 100%
     );
 }
 
@@ -62,10 +64,11 @@ header {
 header h1 {
   margin: 0;
   font-size: 34px;
+  color: #493c42;
 }
 
 header p {
-  color: var(--sub);
+  color: #aa929c;
   margin: 7px 0 0;
   font-size: 14px;
 }
@@ -76,14 +79,14 @@ header p {
   gap: 22px;
   padding: 22px;
   border-radius: 36px;
-  background: rgba(255,255,255,.45);
-  border: 1px solid rgba(245,173,184,.25);
+  background: rgba(255,255,255,.96);
+  border: 1px solid rgba(245,173,184,.45);
   box-shadow: 0 18px 50px rgba(110,80,90,.08);
 }
 
 .player-card,
 .playlist-card {
-  background: var(--paper);
+  background: #ffffff;
   border-radius: 28px;
   box-shadow: 0 12px 30px rgba(80,60,70,.08);
 }
@@ -104,7 +107,6 @@ header p {
   flex: 0 0 auto;
   border-radius: 50%;
   padding: 10px;
-
   background:
     repeating-radial-gradient(
       circle,
@@ -119,11 +121,9 @@ header p {
       #dbe7ed,
       #f5adb8
     );
-
   box-shadow:
     0 16px 30px rgba(80,70,75,.16),
     inset 0 0 0 2px rgba(255,255,255,.5);
-
   overflow: hidden;
 }
 
@@ -181,11 +181,12 @@ header p {
 .song-info h2 {
   margin: 0;
   font-size: 24px;
+  color: #493c42;
 }
 
 .song-info p {
   margin: 7px 0 0;
-  color: var(--sub);
+  color: #aa929c;
   font-size: 15px;
 }
 
@@ -203,13 +204,13 @@ header p {
 
 .time {
   font-size: 12px;
-  color: var(--sub);
+  color: #aa929c;
   text-align: center;
 }
 
 input[type="range"] {
   width: 100%;
-  accent-color: var(--pink);
+  accent-color: #f5adb8;
   cursor: pointer;
   color-scheme: light;
 }
@@ -228,11 +229,15 @@ input[type="range"] {
   border: 0;
   border-radius: 50%;
   background: #ffffff;
-  color: var(--text);
+  color: #493c42;
   cursor: pointer;
   font-size: 22px;
   box-shadow: 0 8px 20px rgba(90,70,80,.1);
   color-scheme: light;
+}
+
+.control-btn:hover {
+  transform: scale(1.05);
 }
 
 .play-btn {
@@ -241,9 +246,9 @@ input[type="range"] {
   background:
     linear-gradient(
       135deg,
-      var(--pink),
-      #f1d5dd 50%,
-      var(--mint)
+      #f5adb8 0%,
+      #f3d5df 50%,
+      #bcfbfa 100%
     );
   font-size: 26px;
 }
@@ -264,6 +269,7 @@ input[type="range"] {
 .playlist-card h2 {
   margin: 0 8px 18px;
   font-size: 20px;
+  color: #493c42;
 }
 
 .playlist {
@@ -277,7 +283,7 @@ input[type="range"] {
 }
 
 .playlist::-webkit-scrollbar-thumb {
-  background: var(--pink);
+  background: #f5adb8;
   border-radius: 20px;
 }
 
@@ -289,24 +295,28 @@ input[type="range"] {
   gap: 15px;
   padding: 14px;
   margin-bottom: 12px;
-  border: 1px solid rgba(245,173,184,.65);
+  border: 1px solid rgba(245,173,184,.8);
   border-radius: 22px;
-  background: rgba(255,249,251,.9);
-  color: var(--text);
+  background: #fff9fb;
+  color: #493c42;
   cursor: pointer;
   text-align: left;
   font-family: inherit;
   color-scheme: light;
 }
 
+.track:hover {
+  background: #ffffff;
+}
+
 .track.active {
   background:
     linear-gradient(
       135deg,
-      rgba(245,173,184,.16),
-      rgba(188,251,250,.16)
+      #ffeef3,
+      #efffff
     );
-  border-color: var(--pink);
+  border-color: #f5adb8;
 }
 
 .track img {
@@ -324,6 +334,7 @@ input[type="range"] {
 .track-title {
   font-weight: 700;
   font-size: 15px;
+  color: #493c42;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -332,7 +343,7 @@ input[type="range"] {
 .track-artist {
   margin-top: 5px;
   font-size: 12px;
-  color: var(--sub);
+  color: #aa929c;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -340,47 +351,93 @@ input[type="range"] {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    color-scheme: light;
+    color-scheme: light only;
     --pink: #f5adb8;
     --mint: #bcfbfa;
     --text: #493c42;
     --sub: #aa929c;
-    --paper: rgba(255,255,255,.9);
+    --paper: #ffffff;
+  }
+
+  html,
+  body {
+    background-color: #ffffff !important;
+    color: #493c42 !important;
   }
 
   body {
-    color: #493c42;
     background:
       radial-gradient(
         circle at 10% 10%,
-        rgba(245,173,184,.22),
-        transparent 28%
+        rgba(245,173,184,.32),
+        transparent 30%
       ),
       radial-gradient(
         circle at 90% 80%,
-        rgba(188,251,250,.25),
-        transparent 30%
+        rgba(188,251,250,.36),
+        transparent 32%
       ),
       linear-gradient(
         135deg,
-        #fff6f9,
-        #ffffff
-      );
+        #fff6f9 0%,
+        #ffffff 50%,
+        #f5ffff 100%
+      ) !important;
+  }
+
+  .main {
+    background: rgba(255,255,255,.96) !important;
+    border-color: rgba(245,173,184,.45) !important;
   }
 
   .player-card,
   .playlist-card {
-    background: rgba(255,255,255,.9);
+    background: #ffffff !important;
   }
 
   .track {
-    background: rgba(255,249,251,.9);
-    color: #493c42;
+    background: #fff9fb !important;
+    color: #493c42 !important;
+    border-color: rgba(245,173,184,.8) !important;
+  }
+
+  .track.active {
+    background:
+      linear-gradient(
+        135deg,
+        #ffeef3,
+        #efffff
+      ) !important;
+    border-color: #f5adb8 !important;
   }
 
   .control-btn {
-    background: #ffffff;
-    color: #493c42;
+    background: #ffffff !important;
+    color: #493c42 !important;
+  }
+
+  .play-btn {
+    background:
+      linear-gradient(
+        135deg,
+        #f5adb8 0%,
+        #f3d5df 50%,
+        #bcfbfa 100%
+      ) !important;
+  }
+
+  .song-info h2,
+  .track-title,
+  header h1,
+  .playlist-card h2 {
+    color: #493c42 !important;
+  }
+
+  .song-info p,
+  .track-artist,
+  header p,
+  .time {
+    color: #aa929c !important;
   }
 }
 
@@ -456,33 +513,20 @@ input[type="range"] {
 <div class="progress-area">
   <div class="progress-row">
     <span class="time" id="currentTime">0:00</span>
-    <input
-      id="progress"
-      type="range"
-      min="0"
-      max="100"
-      value="0"
-    >
+    <input id="progress" type="range" min="0" max="100" value="0">
     <span class="time" id="duration">0:00</span>
   </div>
 </div>
 
 <div class="controls">
-  <button class="control-btn" id="prev">◀◀</button>
-  <button class="control-btn play-btn" id="play">▶</button>
-  <button class="control-btn" id="next">▶▶</button>
+  <button class="control-btn" id="prev" type="button">◀◀</button>
+  <button class="control-btn play-btn" id="play" type="button">▶</button>
+  <button class="control-btn" id="next" type="button">▶▶</button>
 </div>
 
 <div class="volume-area">
   <span>🔊</span>
-  <input
-    id="volume"
-    type="range"
-    min="0"
-    max="1"
-    step="0.01"
-    value="0.7"
-  >
+  <input id="volume" type="range" min="0" max="1" step="0.01" value="0.7">
 </div>
 
 </section>
@@ -603,13 +647,13 @@ function formatTime(seconds) {
   const minutes = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
 
-  return minutes + ":" + String(secs).padStart(2,"0");
+  return minutes + ":" + String(secs).padStart(2, "0");
 }
 
 function renderPlaylist() {
   playlist.innerHTML = "";
 
-  tracks.forEach(function(track,index) {
+  tracks.forEach(function(track, index) {
     const button = document.createElement("button");
 
     button.type = "button";
@@ -641,14 +685,14 @@ function renderPlaylist() {
     button.appendChild(text);
 
     button.onclick = function() {
-      loadTrack(index,true);
+      loadTrack(index, true);
     };
 
     playlist.appendChild(button);
   });
 }
 
-function loadTrack(index,autoplay) {
+function loadTrack(index, autoplay) {
   if (index < 0) {
     index = tracks.length - 1;
   }
@@ -693,44 +737,38 @@ playButton.onclick = function() {
 };
 
 prevButton.onclick = function() {
-  loadTrack(current - 1,true);
+  loadTrack(current - 1, true);
 };
 
 nextButton.onclick = function() {
-  loadTrack(current + 1,true);
+  loadTrack(current + 1, true);
 };
 
-audio.addEventListener("play",function() {
+audio.addEventListener("play", function() {
   playButton.textContent = "❚❚";
   discWrap.classList.add("playing");
 });
 
-audio.addEventListener("pause",function() {
+audio.addEventListener("pause", function() {
   playButton.textContent = "▶";
   discWrap.classList.remove("playing");
 });
 
-audio.addEventListener("loadedmetadata",function() {
+audio.addEventListener("loadedmetadata", function() {
   durationText.textContent = formatTime(audio.duration);
 });
 
-audio.addEventListener("timeupdate",function() {
+audio.addEventListener("timeupdate", function() {
   currentTimeText.textContent = formatTime(audio.currentTime);
 
-  if (
-    Number.isFinite(audio.duration) &&
-    audio.duration > 0
-  ) {
+  if (Number.isFinite(audio.duration) && audio.duration > 0) {
     progress.value =
       (audio.currentTime / audio.duration) * 100;
   }
 });
 
 progress.oninput = function(event) {
-  if (
-    !Number.isFinite(audio.duration) ||
-    audio.duration <= 0
-  ) {
+  if (!Number.isFinite(audio.duration) || audio.duration <= 0) {
     return;
   }
 
@@ -743,13 +781,13 @@ volume.oninput = function(event) {
   audio.volume = Number(event.target.value);
 };
 
-audio.addEventListener("ended",function() {
-  loadTrack(current + 1,true);
+audio.addEventListener("ended", function() {
+  loadTrack(current + 1, true);
 });
 
 audio.volume = Number(volume.value);
 
-loadTrack(0,false);
+loadTrack(0, false);
 </script>
 
 </body>
