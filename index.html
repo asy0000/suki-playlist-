@@ -6,321 +6,340 @@
 <title>SUKI Playlist</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+:root{
+  --pink:#f5adb8;
+  --mint:#bcfbfa;
+  --text:#493c42;
+  --sub:#aa929c;
+  --paper:rgba(255,255,255,.9);
 }
 
-:root {
-  --pink: #f5adb8;
-  --mint: #bcfbfa;
-  --text: #493c42;
-  --sub: #aa929c;
-  --paper: rgba(255,255,255,.88);
-  --card: #fff9fb;
+html,body{
+  margin:0;
+  min-height:100%;
 }
 
-html, body {
-  margin: 0;
-  min-height: 100%;
-}
-
-body {
-  min-height: 100vh;
-  color: var(--text);
-  font-family: "Comic Sans MS", "Segoe UI", sans-serif;
+body{
+  font-family:"Comic Sans MS","Segoe UI",sans-serif;
+  color:var(--text);
   background:
-    radial-gradient(circle at 10% 10%, rgba(245,173,184,.22), transparent 28%),
-    radial-gradient(circle at 90% 80%, rgba(188,251,250,.25), transparent 30%),
-    linear-gradient(135deg, #fff6f9, #ffffff);
+    radial-gradient(circle at 10% 10%,rgba(245,173,184,.22),transparent 28%),
+    radial-gradient(circle at 90% 80%,rgba(188,251,250,.25),transparent 30%),
+    linear-gradient(135deg,#fff6f9,#fff);
 }
 
-.page {
-  width: min(1250px, 94%);
-  margin: 35px auto;
+.page{
+  width:min(1180px,calc(100% - 32px));
+  margin:0 auto;
+  padding:35px 0;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 25px;
+header{
+  text-align:center;
+  margin-bottom:28px;
 }
 
-.header h1 {
-  margin: 0;
-  font-size: 30px;
-  letter-spacing: 1px;
+header h1{
+  margin:0;
+  font-size:34px;
 }
 
-.header p {
-  margin: 7px 0 0;
-  color: var(--sub);
-  font-size: 14px;
+header p{
+  color:var(--sub);
+  margin:7px 0 0;
+  font-size:14px;
 }
 
-.shell {
-  display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: 24px;
-  padding: 25px;
-  border-radius: 38px;
-  background: rgba(255,255,255,.58);
-  border: 1px solid rgba(245,173,184,.25);
-  box-shadow: 0 18px 55px rgba(95,68,78,.12);
+.main{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(340px,.9fr);
+  gap:22px;
+  padding:22px;
+  border-radius:36px;
+  background:rgba(255,255,255,.45);
+  border:1px solid rgba(245,173,184,.25);
+  box-shadow:0 18px 50px rgba(110,80,90,.08);
 }
 
-.player,
-.list-panel {
-  background: var(--paper);
-  border-radius: 30px;
-  padding: 30px;
-  box-shadow: 0 8px 25px rgba(82,59,68,.08);
+.player-card,
+.playlist-card{
+  background:var(--paper);
+  border-radius:28px;
+  box-shadow:0 12px 30px rgba(80,60,70,.08);
 }
 
-.player {
-  min-height: 650px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.player-card{
+  min-width:0;
+  padding:32px 34px 30px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 }
 
-.disc-wrap {
-  width: min(420px, 78vw);
-  aspect-ratio: 1;
-  position: relative;
-  margin-bottom: 25px;
-}
-
-.disc {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  padding: 24px;
+.disc-wrap{
+  width:min(350px,75%);
+  aspect-ratio:1/1;
+  position:relative;
+  flex:0 0 auto;
+  border-radius:50%;
+  padding:10px;
   background:
     repeating-radial-gradient(
       circle,
-      rgba(70,55,65,.11) 0 2px,
-      transparent 2px 5px
+      rgba(255,255,255,.35) 0 2px,
+      rgba(255,255,255,.05) 2px 5px
     ),
     conic-gradient(
-      var(--pink),
-      #f8d4dc,
-      var(--mint),
-      #e9ffff,
-      var(--pink)
+      from 0deg,
+      #f5adb8,
+      #e9dce6,
+      #bcfbfa,
+      #dbe7ed,
+      #f5adb8
     );
-  box-shadow: 0 15px 28px rgba(75,58,66,.22);
-  animation: spin 14s linear infinite;
-  animation-play-state: paused;
-}
-
-.disc.playing {
-  animation-play-state: running;
-}
-
-.cover {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 9px solid rgba(255,255,255,.9);
-}
-
-.hole {
-  position: absolute;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: #fff;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
   box-shadow:
-    inset 0 0 0 4px rgba(245,173,184,.15),
-    0 2px 8px rgba(0,0,0,.12);
+    0 16px 30px rgba(80,70,75,.16),
+    inset 0 0 0 2px rgba(255,255,255,.5);
+  overflow:hidden;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+.disc{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  overflow:hidden;
+  position:relative;
+  border:6px solid white;
+  background:#eee;
+}
+
+.disc img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  border-radius:50%;
+}
+
+.disc-hole{
+  position:absolute;
+  z-index:5;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:#fff;
+  border:2px solid rgba(245,173,184,.3);
+  box-shadow:0 3px 8px rgba(0,0,0,.1);
+}
+
+.disc-wrap.playing{
+  animation:spin 12s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+
+.song-info{
+  text-align:center;
+  margin-top:24px;
+}
+
+.song-info h2{
+  margin:0;
+  font-size:24px;
+}
+
+.song-info p{
+  margin:7px 0 0;
+  color:var(--sub);
+  font-size:15px;
+}
+
+.progress-area{
+  width:100%;
+  margin-top:28px;
+}
+
+.progress-row{
+  display:grid;
+  grid-template-columns:45px 1fr 45px;
+  gap:10px;
+  align-items:center;
+}
+
+.time{
+  font-size:12px;
+  color:var(--sub);
+  text-align:center;
+}
+
+input[type="range"]{
+  width:100%;
+  accent-color:var(--pink);
+  cursor:pointer;
+}
+
+.controls{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  margin-top:20px;
+}
+
+.control-btn{
+  width:58px;
+  height:58px;
+  border:0;
+  border-radius:50%;
+  background:white;
+  color:var(--text);
+  cursor:pointer;
+  font-size:22px;
+  box-shadow:0 8px 20px rgba(90,70,80,.1);
+}
+
+.play-btn{
+  width:72px;
+  height:72px;
+  background:linear-gradient(135deg,var(--pink),#f1d5dd 50%,var(--mint));
+  font-size:26px;
+}
+
+.volume-area{
+  width:min(320px,85%);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:20px;
+}
+
+.playlist-card{
+  padding:28px 20px;
+  min-width:0;
+}
+
+.playlist-card h2{
+  margin:0 8px 18px;
+  font-size:20px;
+}
+
+.playlist{
+  height:520px;
+  overflow-y:auto;
+  padding:0 8px 0 6px;
+}
+
+.playlist::-webkit-scrollbar{
+  width:7px;
+}
+
+.playlist::-webkit-scrollbar-thumb{
+  background:var(--pink);
+  border-radius:20px;
+}
+
+.track{
+  width:100%;
+  min-height:102px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:14px;
+  margin-bottom:12px;
+  border:1px solid rgba(245,173,184,.65);
+  border-radius:22px;
+  background:rgba(255,249,251,.9);
+  color:var(--text);
+  cursor:pointer;
+  text-align:left;
+}
+
+.track.active{
+  background:linear-gradient(
+    135deg,
+    rgba(245,173,184,.16),
+    rgba(188,251,250,.16)
+  );
+  border-color:var(--pink);
+}
+
+.track img{
+  width:76px;
+  height:76px;
+  flex:0 0 76px;
+  object-fit:cover;
+  border-radius:17px;
+}
+
+.track-text{
+  min-width:0;
+}
+
+.track-title{
+  font-weight:700;
+  font-size:15px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.track-artist{
+  margin-top:5px;
+  font-size:12px;
+  color:var(--sub);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+@media(max-width:850px){
+  .main{
+    grid-template-columns:1fr;
+  }
+
+  .disc-wrap{
+    width:min(320px,80%);
+  }
+
+  .playlist{
+    height:430px;
   }
 }
 
-.song-info {
-  text-align: center;
-}
-
-.song-info h2 {
-  margin: 0;
-  font-size: 23px;
-}
-
-.song-info p {
-  margin: 7px 0 0;
-  color: var(--sub);
-}
-
-.progress-row {
-  width: 88%;
-  display: grid;
-  grid-template-columns: 42px 1fr 42px;
-  align-items: center;
-  gap: 9px;
-  margin-top: 27px;
-  font-size: 12px;
-  color: #8f7b84;
-}
-
-input[type="range"] {
-  width: 100%;
-  accent-color: var(--pink);
-}
-
-.controls {
-  display: flex;
-  gap: 18px;
-  margin-top: 24px;
-}
-
-.control {
-  border: 0;
-  background: white;
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
-  cursor: pointer;
-  color: var(--text);
-  font-size: 22px;
-  box-shadow: 0 8px 18px rgba(94,68,78,.10);
-  transition: .2s;
-}
-
-.control:hover {
-  transform: translateY(-3px);
-}
-
-.control.play {
-  width: 78px;
-  height: 78px;
-  color: white;
-  font-size: 28px;
-  background: linear-gradient(135deg, var(--pink), var(--mint));
-}
-
-.volume {
-  width: 75%;
-  margin-top: 25px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.list-panel {
-  height: 650px;
-  display: flex;
-  flex-direction: column;
-}
-
-.list-panel h3 {
-  margin: 0 0 18px 4px;
-  font-size: 20px;
-}
-
-.track-list {
-  overflow-y: auto;
-  padding-right: 8px;
-}
-
-.track-list::-webkit-scrollbar {
-  width: 7px;
-}
-
-.track-list::-webkit-scrollbar-thumb {
-  background: var(--pink);
-  border-radius: 20px;
-}
-
-.track {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 15px;
-  margin-bottom: 13px;
-  border-radius: 24px;
-  background: var(--card);
-  border: 1.5px solid #f8d5de;
-  cursor: pointer;
-  transition: .2s;
-  box-shadow: 0 5px 12px rgba(98,72,80,.05);
-}
-
-.track:hover {
-  transform: translateY(-2px);
-  border-color: var(--pink);
-}
-
-.track.active {
-  border-color: var(--pink);
-  background: #fff2f6;
-  box-shadow: 0 7px 18px rgba(245,173,184,.18);
-}
-
-.track img {
-  width: 82px;
-  height: 82px;
-  object-fit: cover;
-  border-radius: 20px;
-  flex-shrink: 0;
-}
-
-.track-text {
-  min-width: 0;
-}
-
-.track-name {
-  font-size: 16px;
-  font-weight: 700;
-  word-break: keep-all;
-}
-
-.track-artist {
-  margin-top: 6px;
-  font-size: 13px;
-  color: var(--sub);
-}
-
-@media (max-width: 850px) {
-  .page {
-    margin: 18px auto;
-    width: 95%;
+@media(max-width:500px){
+  .page{
+    width:calc(100% - 18px);
+    padding:20px 0;
   }
 
-  .shell {
-    grid-template-columns: 1fr;
-    padding: 14px;
-    border-radius: 25px;
+  header h1{
+    font-size:27px;
   }
 
-  .player,
-  .list-panel {
-    border-radius: 22px;
-    padding: 20px;
+  .main{
+    padding:12px;
+    border-radius:26px;
   }
 
-  .player {
-    min-height: auto;
+  .player-card{
+    padding:25px 16px;
   }
 
-  .list-panel {
-    height: 600px;
+  .disc-wrap{
+    width:min(270px,85%);
   }
 
-  .disc-wrap {
-    width: min(330px, 80vw);
-  }
-
-  .track img {
-    width: 68px;
-    height: 68px;
+  .playlist-card{
+    padding:22px 12px;
   }
 }
 </style>
@@ -330,52 +349,54 @@ input[type="range"] {
 
 <div class="page">
 
-  <header class="header">
-    <h1>SUKI Playlist</h1>
-    <p>~절찬리 추가중~</p>
-  </header>
+<header>
+  <h1>SUKI Playlist</h1>
+  <p>~절찬리 추가중~</p>
+</header>
 
-  <main class="shell">
+<main class="main">
 
-    <section class="player">
+<section class="player-card">
 
-      <div class="disc-wrap">
-        <div class="disc" id="disc">
-          <img class="cover" id="mainCover" alt="album cover">
-        </div>
-        <div class="hole"></div>
-      </div>
+<div class="disc-wrap" id="discWrap">
+  <div class="disc">
+    <img id="cover" alt="">
+  </div>
+  <div class="disc-hole"></div>
+</div>
 
-      <div class="song-info">
-        <h2 id="songName"></h2>
-        <p id="songArtist"></p>
-      </div>
+<div class="song-info">
+  <h2 id="title"></h2>
+  <p id="artist"></p>
+</div>
 
-      <div class="progress-row">
-        <span id="currentTime">0:00</span>
-        <input id="progress" type="range" min="0" max="100" value="0">
-        <span id="duration">0:00</span>
-      </div>
+<div class="progress-area">
+  <div class="progress-row">
+    <span class="time" id="currentTime">0:00</span>
+    <input id="progress" type="range" min="0" max="100" value="0">
+    <span class="time" id="duration">0:00</span>
+  </div>
+</div>
 
-      <div class="controls">
-        <button class="control" id="prev">◀◀</button>
-        <button class="control play" id="play">▶</button>
-        <button class="control" id="next">▶▶</button>
-      </div>
+<div class="controls">
+  <button class="control-btn" id="prev">◀◀</button>
+  <button class="control-btn play-btn" id="play">▶</button>
+  <button class="control-btn" id="next">▶▶</button>
+</div>
 
-      <div class="volume">
-        <span>🔈</span>
-        <input id="volume" type="range" min="0" max="100" value="70">
-      </div>
+<div class="volume-area">
+  <span>🔊</span>
+  <input id="volume" type="range" min="0" max="1" step="0.01" value="0.7">
+</div>
 
-    </section>
+</section>
 
-    <section class="list-panel">
-      <h3>곡 목록</h3>
-      <div class="track-list" id="trackList"></div>
-    </section>
+<section class="playlist-card">
+  <h2>곡 목록</h2>
+  <div class="playlist" id="playlist"></div>
+</section>
 
-  </main>
+</main>
 </div>
 
 <audio id="audio" preload="metadata"></audio>
@@ -383,226 +404,237 @@ input[type="range"] {
 <script>
 const tracks = [
   {
-    name: "Pale Blue",
-    artist: "Kenshi Yonezu",
-    file: "paleblue.opus",
-    cover: "https://i.pinimg.com/736x/32/04/94/32049423111eff0b3cb4f0aa14c4f555.jpg"
+    title:"Pale Blue",
+    artist:"Kenshi Yonezu",
+    src:"./paleblue.opus",
+    cover:"https://i.pinimg.com/736x/32/04/94/32049423111eff0b3cb4f0aa14c4f555.jpg"
   },
   {
-    name: "orion",
-    artist: "Kenshi Yonezu",
-    file: "orion.opus",
-    cover: "https://i.pinimg.com/736x/d7/b3/9d/d7b39d3ee857225d529dcce731be3d94.jpg"
+    title:"orion",
+    artist:"kenshi Yonezu",
+    src:"./orion.opus",
+    cover:"https://i.pinimg.com/736x/d7/b3/9d/d7b39d3ee857225d529dcce731be3d94.jpg"
   },
   {
-    name: "Mela!",
-    artist: "Ryoku Shaka",
-    file: "mela.opus",
-    cover: "https://i.pinimg.com/736x/55/75/f1/5575f1eb320cdb45d910cb888571cd5f.jpg"
+    title:"Mela!",
+    artist:"Ryoku Shaka",
+    src:"./mela.opus",
+    cover:"https://i.pinimg.com/736x/55/75/f1/5575f1eb320cdb45d910cb888571cd5f.jpg"
   },
   {
-    name: "Lady",
-    artist: "Kenshi Yonezu",
-    file: "lady.opus",
-    cover: "https://i.pinimg.com/736x/20/fe/9d/20fe9d508e77b39d08bf88fe7306f2da.jpg"
+    title:"Lady",
+    artist:"Kenshi Yonezu",
+    src:"./lady.opus",
+    cover:"https://i.pinimg.com/736x/20/fe/9d/20fe9d508e77b39d08bf88fe7306f2da.jpg"
   },
   {
-    name: "ヒロインRE♡クエスト",
-    artist: "Feat. Kasane Teto, Adachi Rei",
-    file: "heroin.opus",
-    cover: "https://i.pinimg.com/736x/8f/56/96/8f5696d5f03bdfebd5e2bf0b3a865562.jpg"
+    title:"ヒロインRE♡クエスト",
+    artist:"Feat. Kasane Teto, Adachi Rei",
+    src:"./heroin.opus",
+    cover:"https://i.pinimg.com/736x/8f/56/96/8f5696d5f03bdfebd5e2bf0b3a865562.jpg"
   },
   {
-    name: "Kimini 100 Percent",
-    artist: "Kyary Pamyu Pamyu",
-    file: "kimini.opus",
-    cover: "https://i.pinimg.com/736x/da/6a/6e/da6a6eda6c75ba19d4a54a7ecd6e11b8.jpg"
+    title:"Kimini 100 Percent",
+    artist:"kyari pamyu pamyu",
+    src:"./kimini.opus",
+    cover:"https://i.pinimg.com/736x/da/6a/6e/da6a6eda6c75ba19d4a54a7ecd6e11b8.jpg"
   },
   {
-    name: "最大公約数",
-    artist: "RADWIMPS",
-    file: "rad.opus",
-    cover: "https://i.pinimg.com/736x/9b/b7/b2/9bb7b2c3b4c2151b343ebe8814eb8630.jpg"
+    title:"最大公約数",
+    artist:"RADWIMPS",
+    src:"./rad.opus",
+    cover:"https://i.pinimg.com/736x/9b/b7/b2/9bb7b2c3b4c2151b343ebe8814eb8630.jpg"
   },
   {
-    name: "눈 맞추고, 손 맞대고",
-    artist: "Red Velvet",
-    file: "eyes.opus",
-    cover: "https://i.pinimg.com/1200x/64/7f/41/647f41fe7c51c8b5e7c8f56e1c76327e.jpg"
+    title:"눈 맞추고, 손 맞대고",
+    artist:"Red Velvet",
+    src:"./eyes.opus",
+    cover:"https://i.pinimg.com/1200x/64/7f/41/647f41fe7c51c8b5e7c8f56e1c76327e.jpg"
   },
   {
-    name: "동거",
-    artist: "선우정아",
-    file: "inthebed.opus",
-    cover: "https://i.pinimg.com/1200x/b8/b0/fd/b8b0fde66f0dab4d9a5ed791fefd1f76.jpg"
+    title:"동거",
+    artist:"선우정아",
+    src:"./inthebed.opus",
+    cover:"https://i.pinimg.com/1200x/b8/b0/fd/b8b0fde66f0dab4d9a5ed791fefd1f76.jpg"
   },
   {
-    name: "Beyond My Dreams",
-    artist: "선우정아",
-    file: "beyond.opus",
-    cover: "https://i.pinimg.com/1200x/05/84/3d/05843d4912676bb96d4b0660c6524595.jpg"
+    title:"Beyond My Dreams",
+    artist:"선우정아",
+    src:"./beyond.opus",
+    cover:"https://i.pinimg.com/1200x/05/84/3d/05843d4912676bb96d4b0660c6524595.jpg"
   },
   {
-    name: "행운을 빌어요",
-    artist: "PEPPERTONES",
-    file: "goodluck.opus",
-    cover: "https://i.pinimg.com/736x/ff/76/51/ff76513560a93f10b488a316db2e6550.jpg"
+    title:"행운을 빌어요",
+    artist:"PEPPERTONES",
+    src:"./goodluck.opus",
+    cover:"https://i.pinimg.com/736x/ff/76/51/ff76513560a93f10b488a316db2e6550.jpg"
   },
   {
-    name: "Walking with you",
-    artist: "Novelbright",
-    file: "walking.opus",
-    cover: "https://i.pinimg.com/1200x/e3/a7/fa/e3a7fa1d84a707ce33445cacacc4508c.jpg"
+    title:"Walking with you",
+    artist:"Novelbright",
+    src:"./walking.opus",
+    cover:"https://i.pinimg.com/1200x/e3/a7/fa/e3a7fa1d84a707ce33445cacacc4508c.jpg"
   },
   {
-    name: "Starry Drama",
-    artist: "Ryoku Shaka",
-    file: "starry.opus",
-    cover: "https://i.pinimg.com/1200x/67/62/29/676229f3e356bcd459b09dc74c88e3ef.jpg"
+    title:"Starry Drama",
+    artist:"Ryoku Shaka",
+    src:"./starry.opus",
+    cover:"https://i.pinimg.com/1200x/67/62/29/676229f3e356bcd459b09dc74c88e3ef.jpg"
   }
 ];
 
-let current = 1;
+const audio=document.getElementById("audio");
+const cover=document.getElementById("cover");
+const title=document.getElementById("title");
+const artist=document.getElementById("artist");
+const playlist=document.getElementById("playlist");
+const playButton=document.getElementById("play");
+const prevButton=document.getElementById("prev");
+const nextButton=document.getElementById("next");
+const progress=document.getElementById("progress");
+const currentTimeText=document.getElementById("currentTime");
+const durationText=document.getElementById("duration");
+const volume=document.getElementById("volume");
+const discWrap=document.getElementById("discWrap");
 
-const audio = document.getElementById("audio");
-const list = document.getElementById("trackList");
-const mainCover = document.getElementById("mainCover");
-const songName = document.getElementById("songName");
-const songArtist = document.getElementById("songArtist");
-const disc = document.getElementById("disc");
-const playButton = document.getElementById("play");
-const progress = document.getElementById("progress");
-const currentTimeEl = document.getElementById("currentTime");
-const durationEl = document.getElementById("duration");
-const volume = document.getElementById("volume");
+let current=1;
 
-audio.volume = 0.7;
+function formatTime(seconds){
+  if(!Number.isFinite(seconds))return"0:00";
+  const minutes=Math.floor(seconds/60);
+  const secs=Math.floor(seconds%60);
+  return minutes+":"+String(secs).padStart(2,"0");
+}
 
-function renderList() {
-  list.innerHTML = "";
+function renderPlaylist(){
+  playlist.innerHTML="";
 
-  tracks.forEach((track, index) => {
-    const card = document.createElement("div");
-    card.className = "track" + (index === current ? " active" : "");
+  tracks.forEach(function(track,index){
+    const button=document.createElement("button");
 
-    card.innerHTML = `
-      <img src="${track.cover}" alt="">
-      <div class="track-text">
-        <div class="track-name">${track.name}</div>
-        <div class="track-artist">${track.artist}</div>
-      </div>
-    `;
+    button.type="button";
+    button.className="track";
 
-    card.onclick = function () {
-      loadTrack(index, true);
+    if(index===current){
+      button.classList.add("active");
+    }
+
+    const img=document.createElement("img");
+    img.src=track.cover;
+    img.alt="";
+
+    const text=document.createElement("div");
+    text.className="track-text";
+
+    const trackTitle=document.createElement("div");
+    trackTitle.className="track-title";
+    trackTitle.textContent=track.title;
+
+    const trackArtist=document.createElement("div");
+    trackArtist.className="track-artist";
+    trackArtist.textContent=track.artist;
+
+    text.appendChild(trackTitle);
+    text.appendChild(trackArtist);
+
+    button.appendChild(img);
+    button.appendChild(text);
+
+    button.onclick=function(){
+      loadTrack(index,true);
     };
 
-    list.appendChild(card);
+    playlist.appendChild(button);
   });
 }
 
-function updateInfo() {
-  const track = tracks[current];
+function loadTrack(index,autoplay){
+  if(index<0)index=tracks.length-1;
+  if(index>=tracks.length)index=0;
 
-  mainCover.src = track.cover;
-  songName.textContent = track.name;
-  songArtist.textContent = track.artist;
+  current=index;
 
-  renderList();
-}
+  const track=tracks[current];
 
-function loadTrack(index, autoplay = false) {
-  current = (index + tracks.length) % tracks.length;
-
-  const track = tracks[current];
-
-  audio.src = "./" + track.file;
+  audio.pause();
+  audio.src=track.src;
   audio.load();
 
-  progress.value = 0;
-  currentTimeEl.textContent = "0:00";
-  durationEl.textContent = "0:00";
+  cover.src=track.cover;
+  title.textContent=track.title;
+  artist.textContent=track.artist;
 
-  updateInfo();
+  progress.value=0;
+  currentTimeText.textContent="0:00";
+  durationText.textContent="0:00";
 
-  if (autoplay) {
-    audio.play().catch(function () {});
+  renderPlaylist();
+
+  if(autoplay){
+    audio.play().catch(function(error){
+      console.log(error);
+    });
   }
 }
 
-function formatTime(seconds) {
-  if (!Number.isFinite(seconds)) {
-    return "0:00";
-  }
-
-  const minutes = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-
-  return `${minutes}:${String(secs).padStart(2, "0")}`;
-}
-
-audio.addEventListener("loadedmetadata", function () {
-  durationEl.textContent = formatTime(audio.duration);
-});
-
-audio.addEventListener("timeupdate", function () {
-  if (audio.duration) {
-    progress.value = (audio.currentTime / audio.duration) * 100;
-  }
-
-  currentTimeEl.textContent = formatTime(audio.currentTime);
-  durationEl.textContent = formatTime(audio.duration);
-});
-
-audio.addEventListener("play", function () {
-  playButton.textContent = "❚❚";
-  disc.classList.add("playing");
-});
-
-audio.addEventListener("pause", function () {
-  playButton.textContent = "▶";
-  disc.classList.remove("playing");
-});
-
-audio.addEventListener("ended", function () {
-  loadTrack(current + 1, true);
-});
-
-playButton.onclick = function () {
-  if (!audio.src) {
-    loadTrack(current, true);
-    return;
-  }
-
-  if (audio.paused) {
-    audio.play();
-  } else {
+playButton.onclick=function(){
+  if(audio.paused){
+    audio.play().catch(function(error){
+      console.log(error);
+    });
+  }else{
     audio.pause();
   }
 };
 
-document.getElementById("prev").onclick = function () {
-  loadTrack(current - 1, true);
+prevButton.onclick=function(){
+  loadTrack(current-1,true);
 };
 
-document.getElementById("next").onclick = function () {
-  loadTrack(current + 1, true);
+nextButton.onclick=function(){
+  loadTrack(current+1,true);
 };
 
-volume.oninput = function (event) {
-  audio.volume = Number(event.target.value) / 100;
-};
+audio.addEventListener("play",function(){
+  playButton.textContent="❚❚";
+  discWrap.classList.add("playing");
+});
 
-progress.oninput = function (event) {
-  if (!Number.isFinite(audio.duration) || audio.duration <= 0) {
-    return;
+audio.addEventListener("pause",function(){
+  playButton.textContent="▶";
+  discWrap.classList.remove("playing");
+});
+
+audio.addEventListener("loadedmetadata",function(){
+  durationText.textContent=formatTime(audio.duration);
+});
+
+audio.addEventListener("timeupdate",function(){
+  currentTimeText.textContent=formatTime(audio.currentTime);
+
+  if(Number.isFinite(audio.duration)&&audio.duration>0){
+    progress.value=(audio.currentTime/audio.duration)*100;
   }
+});
 
-  audio.currentTime =
-    audio.duration * (Number(event.target.value) / 100);
+progress.oninput=function(event){
+  if(!Number.isFinite(audio.duration)||audio.duration<=0)return;
+
+  audio.currentTime=
+    audio.duration*(Number(event.target.value)/100);
 };
 
-loadTrack(current, false);
+volume.oninput=function(event){
+  audio.volume=Number(event.target.value);
+};
+
+audio.addEventListener("ended",function(){
+  loadTrack(current+1,true);
+});
+
+audio.volume=Number(volume.value);
+
+loadTrack(current,false);
 </script>
 
 </body>
