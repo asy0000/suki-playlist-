@@ -355,22 +355,35 @@ input[type="range"] {
 }
 
 .repeat-btn {
-  width: 36px;
-  height: 36px;
-  flex: 0 0 36px;
-  border: 0;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  flex: 0 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-left: auto;
+  border: 1px solid rgba(245,173,184,.45);
   border-radius: 50%;
   background: #ffffff;
   color: #aa929c;
   cursor: pointer;
-  font-size: 18px;
-  font-family: inherit;
+  font-size: 22px;
+  line-height: 1;
+  font-family: Arial, sans-serif;
   box-shadow: 0 5px 12px rgba(90,70,80,.08);
+}
+
+.repeat-btn:hover {
+  transform: scale(1.05);
 }
 
 .repeat-btn.active {
   background: #f5adb8;
   color: #ffffff;
+  border-color: #f5adb8;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -647,7 +660,7 @@ const tracks = [
     title: "Starry Drama",
     artist: "Ryoku Shaka",
     src: "./starry.opus",
-    cover: "https://i.pinimg.com/1200x/67/62/29/676229f3e356bcd459b09dc74c88e3ef.jpg"
+    cover: "https://i.pinimg.com/1200x67/62/29/676229f3e356bcd459b09dc74c88e3ef.jpg"
   }
 ];
 
@@ -710,7 +723,8 @@ function renderPlaylist() {
     text.appendChild(trackTitle);
     text.appendChild(trackArtist);
 
-    const repeatButton = document.createElement("span");
+    const repeatButton = document.createElement("button");
+    repeatButton.type = "button";
     repeatButton.className = "repeat-btn";
     repeatButton.textContent = "↻";
 
