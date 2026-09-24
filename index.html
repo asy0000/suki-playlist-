@@ -223,7 +223,7 @@ input[type="range"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 18px;
+  gap: 14px;
   margin-top: 20px;
 }
 
@@ -238,6 +238,7 @@ input[type="range"] {
   font-size: 22px;
   box-shadow: 0 8px 20px rgba(90,70,80,.1);
   color-scheme: light;
+  transition: transform .15s ease;
 }
 
 .control-btn:hover {
@@ -255,6 +256,22 @@ input[type="range"] {
       #bcfbfa 100%
     );
   font-size: 26px;
+}
+
+.shuffle-btn {
+  font-size: 21px;
+  color: #aa929c;
+}
+
+.shuffle-btn.active {
+  background:
+    linear-gradient(
+      135deg,
+      #f5adb8,
+      #f3d5df,
+      #bcfbfa
+    );
+  color: #493c42;
 }
 
 .volume-area {
@@ -280,6 +297,7 @@ input[type="range"] {
   height: 520px;
   overflow-y: auto;
   padding: 0 8px 0 6px;
+  scroll-behavior: smooth;
 }
 
 .playlist::-webkit-scrollbar {
@@ -453,7 +471,8 @@ input[type="range"] {
     color: #493c42 !important;
   }
 
-  .play-btn {
+  .play-btn,
+  .shuffle-btn.active {
     background:
       linear-gradient(
         135deg,
@@ -522,6 +541,20 @@ input[type="range"] {
   .playlist-card {
     padding: 22px 12px;
   }
+
+  .controls {
+    gap: 10px;
+  }
+
+  .control-btn {
+    width: 52px;
+    height: 52px;
+  }
+
+  .play-btn {
+    width: 66px;
+    height: 66px;
+  }
 }
 </style>
 </head>
@@ -560,6 +593,7 @@ input[type="range"] {
 </div>
 
 <div class="controls">
+  <button class="control-btn shuffle-btn" id="shuffle" type="button" title="셔플">⇄</button>
   <button class="control-btn" id="prev" type="button">◀◀</button>
   <button class="control-btn play-btn" id="play" type="button">▶</button>
   <button class="control-btn" id="next" type="button">▶▶</button>
@@ -672,14 +706,22 @@ const playlist = document.getElementById("playlist");
 const playButton = document.getElementById("play");
 const prevButton = document.getElementById("prev");
 const nextButton = document.getElementById("next");
+const shuffleButton = document.getElementById("shuffle");
 const progress = document.getElementById("progress");
 const currentTimeText = document.getElementById("currentTime");
 const durationText = document.getElementById("duration");
 const volume = document.getElementById("volume");
 const discWrap = document.getElementById("discWrap");
 
-let current = 0;
+let current = Number(localStorage.getItem("sukiCurrent")) || 0;
 let repeatTrack = null;
+let shuffleMode = false;
+let savedTime = Number(localStorage.getItem("sukiTime")) || 0;
+let restoringPosition = true;
+
+if (current < 0 || current >= tracks.length) {
+  current = 0;
+}
 
 function formatTime(seconds) {
   if (!Number.isFinite(seconds)) {
@@ -690,6 +732,19 @@ function formatTime(seconds) {
   const secs = Math.floor(seconds % 60);
 
   return minutes + ":" + String(secs).padStart(2, "0");
+}
+
+function scrollToCurrent() {
+  requestAnimationFrame(function() {
+    const activeTrack = playlist.querySelector(".track.active");
+
+    if (activeTrack) {
+      activeTrack.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    }
+  });
 }
 
 function renderPlaylist() {
@@ -750,6 +805,8 @@ function renderPlaylist() {
     button.appendChild(repeatButton);
 
     button.onclick = function() {
+      restoringPosition = false;
+      savedTime = 0;
       loadTrack(index, true);
     };
 
@@ -768,6 +825,8 @@ function loadTrack(index, autoplay) {
 
   current = index;
 
+  localStorage.setItem("sukiCurrent", current);
+
   const track = tracks[current];
 
   audio.pause();
@@ -784,12 +843,27 @@ function loadTrack(index, autoplay) {
   durationText.textContent = "0:00";
 
   renderPlaylist();
+  scrollToCurrent();
 
   if (autoplay) {
     audio.play().catch(function(error) {
       console.log(error);
     });
   }
+}
+
+function getNextTrack() {
+  if (!shuffleMode || tracks.length <= 1) {
+    return current + 1;
+  }
+
+  let next = current;
+
+  while (next === current) {
+    next = Math.floor(Math.random() * tracks.length);
+  }
+
+  return next;
 }
 
 playButton.onclick = function() {
@@ -803,11 +877,20 @@ playButton.onclick = function() {
 };
 
 prevButton.onclick = function() {
+  restoringPosition = false;
+  savedTime = 0;
   loadTrack(current - 1, true);
 };
 
 nextButton.onclick = function() {
-  loadTrack(current + 1, true);
+  restoringPosition = false;
+  savedTime = 0;
+  loadTrack(getNextTrack(), true);
+};
+
+shuffleButton.onclick = function() {
+  shuffleMode = !shuffleMode;
+  shuffleButton.classList.toggle("active", shuffleMode);
 };
 
 audio.addEventListener("play", function() {
@@ -822,6 +905,18 @@ audio.addEventListener("pause", function() {
 
 audio.addEventListener("loadedmetadata", function() {
   durationText.textContent = formatTime(audio.duration);
+
+  if (
+    restoringPosition &&
+    savedTime > 0 &&
+    savedTime < audio.duration
+  ) {
+    audio.currentTime = savedTime;
+    progress.value = (savedTime / audio.duration) * 100;
+    currentTimeText.textContent = formatTime(savedTime);
+  }
+
+  restoringPosition = false;
 });
 
 audio.addEventListener("timeupdate", function() {
@@ -831,6 +926,9 @@ audio.addEventListener("timeupdate", function() {
     progress.value =
       (audio.currentTime / audio.duration) * 100;
   }
+
+  localStorage.setItem("sukiCurrent", current);
+  localStorage.setItem("sukiTime", audio.currentTime);
 });
 
 progress.oninput = function(event) {
@@ -841,6 +939,8 @@ progress.oninput = function(event) {
   audio.currentTime =
     audio.duration *
     (Number(event.target.value) / 100);
+
+  localStorage.setItem("sukiTime", audio.currentTime);
 };
 
 volume.oninput = function(event) {
@@ -848,12 +948,18 @@ volume.oninput = function(event) {
 };
 
 audio.addEventListener("ended", function() {
-  loadTrack(current + 1, true);
+  localStorage.setItem("sukiTime", 0);
+
+  if (!audio.loop) {
+    restoringPosition = false;
+    savedTime = 0;
+    loadTrack(getNextTrack(), true);
+  }
 });
 
 audio.volume = Number(volume.value);
 
-loadTrack(0, false);
+loadTrack(current, false);
 </script>
 
 </body>
