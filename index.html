@@ -333,6 +333,7 @@ input[type="range"] {
 
 .track-text {
   min-width: 0;
+  flex: 1;
 }
 
 .track-title {
@@ -351,6 +352,25 @@ input[type="range"] {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.repeat-btn {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #aa929c;
+  cursor: pointer;
+  font-size: 18px;
+  font-family: inherit;
+  box-shadow: 0 5px 12px rgba(90,70,80,.08);
+}
+
+.repeat-btn.active {
+  background: #f5adb8;
+  color: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -646,6 +666,7 @@ const volume = document.getElementById("volume");
 const discWrap = document.getElementById("discWrap");
 
 let current = 0;
+let repeatTrack = null;
 
 function formatTime(seconds) {
   if (!Number.isFinite(seconds)) {
@@ -689,8 +710,30 @@ function renderPlaylist() {
     text.appendChild(trackTitle);
     text.appendChild(trackArtist);
 
+    const repeatButton = document.createElement("span");
+    repeatButton.className = "repeat-btn";
+    repeatButton.textContent = "↻";
+
+    if (repeatTrack === index) {
+      repeatButton.classList.add("active");
+    }
+
+    repeatButton.onclick = function(event) {
+      event.stopPropagation();
+
+      if (repeatTrack === index) {
+        repeatTrack = null;
+      } else {
+        repeatTrack = index;
+      }
+
+      audio.loop = repeatTrack === current;
+      renderPlaylist();
+    };
+
     button.appendChild(img);
     button.appendChild(text);
+    button.appendChild(repeatButton);
 
     button.onclick = function() {
       loadTrack(index, true);
@@ -715,6 +758,7 @@ function loadTrack(index, autoplay) {
 
   audio.pause();
   audio.src = track.src;
+  audio.loop = repeatTrack === current;
   audio.load();
 
   cover.src = track.cover;
